@@ -70,6 +70,7 @@ describe('Image Registration', () => {
     it (`And I should see an exclamation icon in the title and URL fields`, () => {
       registerForm.elements.titleFeedback().should(([element]) => {
         const styles = window.getComputedStyle(element)
+        const styles = window.getComputedStyle(element)
         const border = styles.getPropertyValue('border-right-color')
         assert.strictEqual(border, colors.erros)
       })
