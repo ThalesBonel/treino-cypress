@@ -1,13 +1,12 @@
 name: Cypress Tests - Treino Cypress
 
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'treino-cypress/**/*.js'
-      - 'treino-cypress/**/*.json'
-      - 'treino-cypress/**/*.yml'
+on: push
+    # branches:
+    #   - main
+    # paths:
+    #   - 'treino-cypress/**/*.js'
+    #   - 'treino-cypress/**/*.json'
+    #   - 'treino-cypress/**/*.yml'
 
 jobs:
   treino-cypress-tests:
