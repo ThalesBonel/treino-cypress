@@ -79,17 +79,17 @@ describe('Image Registration', () => {
   })
 
 
-  describe('Submitting an image with valid inputs using enter key', () => {
+  describe.skip('Submitting an image with valid inputs using enter key', () => {
     it('Given I am on the image registration page', () => {
       
     });
 
+    it(' When I enter "Alien BR" in the title field',)
     it('',)
     it('',)
     it('',)
     it('',)
     it('',)
-    it('',)
-    
+
   });
 })
