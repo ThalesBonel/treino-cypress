@@ -1,4 +1,4 @@
-name: Cypress Tests - In Class Project
+name: Cypress Tests - Treino Cypress
 
 on:
   push:
