@@ -10,7 +10,7 @@ on:
       - 'treino-cypress/**.yml'
 
 jobs:
-  in-class-project-tests:
+  treino-cypress-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,7 +24,7 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: ./in-class-project
+        working-directory: ./treino-cypress
 
       - name: Run Cypress tests
         run: npm run cypress:headless
