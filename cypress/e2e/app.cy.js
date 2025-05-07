@@ -68,11 +68,11 @@ describe('Image Registration', () => {
       registerForm.elements.imageURLFeedback().should('contains.text', 'Please type a valid URL')
     })
     it (`And I should see an exclamation icon in the title and URL fields`, () => {
-      // registerForm.elements.titleFeedback().should(([element]) => {
-      //   const styles = window.getComputedStyle(element)
-      //   const border = styles.getPropertyValue('border-right-color')
-      //   assert.strictEqual(border, colors.erros)
-      // })
+      registerForm.elements.titleFeedback().should(([element]) => {
+        const styles = window.getComputedStyle(element)
+        const border = styles.getPropertyValue('border-right-color')
+        assert.strictEqual(border, colors.erros)
+      })
     })
       
 

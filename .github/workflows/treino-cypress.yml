@@ -5,9 +5,9 @@ on:
     branches:
       - main
     paths:
-      - 'treino-cypress/**.js'
-      - 'treino-cypress/**.json'
-      - 'treino-cypress/**.yml'
+      - 'treino-cypress/**/*.js'
+      - 'treino-cypress/**/*.json'
+      - 'treino-cypress/**/*.yml'    
 
 jobs:
   treino-cypress-tests:
