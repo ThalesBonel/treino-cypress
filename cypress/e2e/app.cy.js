@@ -83,5 +83,13 @@ describe('Image Registration', () => {
     it('Given I am on the image registration page', () => {
       
     });
+
+    it('',)
+    it('',)
+    it('',)
+    it('',)
+    it('',)
+    it('',)
+    
   });
 })
