@@ -25,6 +25,10 @@ jobs:
         run: npm install
         working-directory: ./
 
+      - name: Install Cypress binary
+        run: npx cypress install
+        working-directory: ./treino-cypress
+
       - name: Run Cypress tests
         run: npm run cypress:headless
         working-directory: ./
