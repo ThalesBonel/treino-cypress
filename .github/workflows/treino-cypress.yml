@@ -1,0 +1,31 @@
+name: Cypress Tests - Treino Cypress
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'treino-cypress/**/*.js'
+      - 'treino-cypress/**/*.json'
+      - 'treino-cypress/**/*.yml'
+
+jobs:
+  treino-cypress-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.12.1
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./treino-cypress
+
+      - name: Run Cypress tests
+        run: npm run cypress:headless
+        working-directory: ./treino-cypress
