@@ -30,7 +30,7 @@ class RegisterForm {
 const registerForm = new RegisterForm()
 const colors = {
   erros: 'rgb(220, 53, 69)',
-  success: ''
+  success: 'rgb(222, 226, 230)'
 }
 
 describe('Image Registration', () => {
