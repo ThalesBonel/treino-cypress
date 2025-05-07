@@ -5,31 +5,38 @@ on:
     branches:
       - main
     # paths:
-    #   - 'treino-cypress/**/**/*.js'
-    #   - 'treino-cypress/**/**/*.json'
+    #   - 'treino-cypress/cypress/e2e/*.js'
+    #   - 'treino-cypress/**/*.json'
     #   - 'treino-cypress/**/**/*.yml'
 
 jobs:
-  treino-cypress-tests:
+  cypress-run:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
+      # Install npm dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+    # steps:
+      # - name: Checkout code
+      #   uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20.12.1
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 20.12.1
 
-      - name: Install dependencies
-        run: npm install
-        working-directory: ./
+      # - name: Install dependencies
+      #   run: npm install
+      #   working-directory: ./
 
-      - name: Install Cypress binary
-        run: npx cypress install
-        working-directory: ./
+      # - name: Install Cypress binary
+      #   run: npx cypress install
+      #   working-directory: ./
 
-      - name: Run Cypress tests
-        run: npm run cypress:headless
-        working-directory: ./
+      # - name: Run Cypress tests
+      #   run: npm run cypress:headless
+      #   working-directory: ./
