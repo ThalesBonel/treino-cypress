@@ -77,4 +77,11 @@ describe('Image Registration', () => {
       
 
   })
+
+
+  describe('Submitting an image with valid inputs using enter key', () => {
+    it('Given I am on the image registration page', () => {
+      
+    });
+  });
 })
