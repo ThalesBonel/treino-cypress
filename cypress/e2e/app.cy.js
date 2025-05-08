@@ -198,7 +198,7 @@ describe('Image Registration', () => {
 
 
 
-  describe.only('Refreshing the page after submitting an image clicking in the submit button', () => {
+  describe('Refreshing the page after submitting an image clicking in the submit button', () => {
     clearLocalStorage()
 
     const data = {
