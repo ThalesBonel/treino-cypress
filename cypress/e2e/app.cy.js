@@ -1,29 +1,9 @@
+/// <reference types="cypress" />
+
+import { title } from 'process'
+import RegisterForm from '../support/pageObjects/RegisterForm'
 import assert from 'assert'
 
-class RegisterForm {
-  elements = {
-    titleInput: () => cy.get('#title'),
-    titleFeedback: () => cy.get('#titleFeedback'),
-    imageURLInput: () => cy.get('#imageUrl'),
-    imageURLFeedback: () => cy.get('#urlFeedback'),
-    submitBtn: () => cy.get('#btnSubmit')
-  }
-
-  typeTitle(text) {
-    if(!text) return;
-    this.elements.titleInput().type(text)
-  }
-
-  typeUrl(text) {
-    if(!text) return;
-    this.elements.imageURLInput().type(text)
-  }
-
-  clickSubmit() {
-    this.elements.submitBtn().click()
-  }
-
-} 
 
 const registerForm = new RegisterForm()
 const colors = {
@@ -32,6 +12,9 @@ const colors = {
 }
 
 describe('Image Registration', () => {
+  after(() => {
+    cy.clearAllLocalStorage();
+  });
   // describe.skip('Submitting an image with invalid inputs', () => {
   //   after(() => {
   //     cy.clearAllLocalStorage()
@@ -77,10 +60,6 @@ describe('Image Registration', () => {
   describe('Given i am on the image registration page', () => {
     beforeEach(() => {
       cy.visit('/')
-    })
-
-    after(() => {
-      cy.clearAllLocalStorage()
     })
 
     context('When I submit with invalid inputs', () => {
@@ -172,5 +151,54 @@ describe('Image Registration', () => {
       registerForm.elements.imageURLInput().should('have.value', '')
     })
 
+  });
+
+  describe.only('Submitting an image and updating the list', () => {
+    before(() => {
+      cy.visit('/')
+    })
+
+    // after(() => {
+    //   cy.log('AFTER rodando...');
+    //   cy.clearAllLocalStorage()
+    // })
+
+    const input = {
+      title: 'ET Bilu',
+      url: 'https://pbs.twimg.com/profile_images/1169525097/etebilu_400x400.jpg'
+    }
+  
+    // it('Given I am on the image registration page', () => {
+    //   cy.visit('/')
+    // });
+
+    it('Then I have entered valid inputs', () => {
+      cy.submitNewImagem(input)
+    }); 
+    
+    it('And the list of registered images should be updated with the new item', () => {
+      cy.get('#card-list .card-img').should((elements) => {
+        const lastElement = elements[elements.length - 1]
+        const src = lastElement.getAttribute('src')
+        expect(src).to.be.equal(input.url)
+      })
+    }); 
+    it('And the new item should be stored in the localStorage', () => {
+      cy.getAllLocalStorage().should((ls) => {
+        const appStorage = ls[window.location.origin]
+       
+        expect(appStorage).to.have.property('tdd-ew-db');
+        const data = JSON.parse(appStorage['tdd-ew-db']);
+        
+        expect(data).to.deep.include({
+          title: input.title,
+          imageUrl: input.url
+        })
+      })
+    }); 
+    it('Then The inputs should be cleared', () => {
+      registerForm.elements.titleInput().should('have.value', '')
+      registerForm.elements.imageURLInput().should('have.value', '')
+    });
   });
 })

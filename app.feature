@@ -22,8 +22,8 @@ Feature: Image Registration
 
   Scenario: Submitting an image and updating the list
     Given I am on the image registration page
-    Then I have entered "BR Alien" in the title field
-    Then I have entered "https://cdn.mos.cms.futurecdn.net/eM9EvWyDxXcnQTTyH8c8p5-1200-80.jpg" in the URL field
+    Then I have entered "ET Bilu" in the title field
+    Then I have entered "https://pbs.twimg.com/profile_images/1169525097/etebilu_400x400.jpg" in the URL field
     When I click the submit button
     And the list of registered images should be updated with the new item
     And the new item should be stored in the localStorage
