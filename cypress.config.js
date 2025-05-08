@@ -6,6 +6,7 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
+    video: true,
     baseUrl: 'https://erickwendel.github.io/vanilla-js-web-app-example/',
 
     //não vai limpar o estado da tela após cada it

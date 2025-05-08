@@ -1,9 +1,6 @@
 /// <reference types="cypress" />
-
-import { title } from 'process'
 import RegisterForm from '../support/pageObjects/RegisterForm'
 import assert from 'assert'
-
 
 const registerForm = new RegisterForm()
 const colors = {
@@ -11,10 +8,15 @@ const colors = {
   success: 'rgb(220, 53, 69)'
 }
 
-describe('Image Registration', () => {
+const clearLocalStorage = () => {
   after(() => {
-    cy.clearAllLocalStorage();
+    cy.clearLocalStorage();
   });
+}
+
+describe('Image Registration', () => {
+  
+
   // describe.skip('Submitting an image with invalid inputs', () => {
   //   after(() => {
   //     cy.clearAllLocalStorage()
@@ -58,9 +60,7 @@ describe('Image Registration', () => {
 
   // // >>> REFATORANDO TESTE ACIMA
   describe('Given i am on the image registration page', () => {
-    beforeEach(() => {
-      cy.visit('/')
-    })
+    clearLocalStorage()
 
     context('When I submit with invalid inputs', () => {
       beforeEach(() => {
@@ -69,6 +69,10 @@ describe('Image Registration', () => {
         registerForm.clickSubmit()
       });
     });
+
+    it('Given I am on the image registration page', () => {
+      cy.visit('/')
+    })
 
     it('Then I should see validation messages', () => {
       registerForm.elements.titleFeedback().should('contain.text', 'Please type a title for the image.')
@@ -85,9 +89,7 @@ describe('Image Registration', () => {
   });
 
   describe('Submitting an image with valid inputs using enter key', () => {
-    after(() => {
-      cy.clearAllLocalStorage()
-    })
+    clearLocalStorage()
 
     const input = {
       title: 'Alien BR',
@@ -153,24 +155,16 @@ describe('Image Registration', () => {
 
   });
 
-  describe.only('Submitting an image and updating the list', () => {
-    before(() => {
-      cy.visit('/')
-    })
-
-    // after(() => {
-    //   cy.log('AFTER rodando...');
-    //   cy.clearAllLocalStorage()
-    // })
+  describe('Submitting an image and updating the list', () => {
+    clearLocalStorage()
 
     const input = {
       title: 'ET Bilu',
       url: 'https://pbs.twimg.com/profile_images/1169525097/etebilu_400x400.jpg'
     }
-  
-    // it('Given I am on the image registration page', () => {
-    //   cy.visit('/')
-    // });
+    it('Given I am on the image registration page', () => {
+      cy.visit('/')
+    })
 
     it('Then I have entered valid inputs', () => {
       cy.submitNewImagem(input)
@@ -199,6 +193,48 @@ describe('Image Registration', () => {
     it('Then The inputs should be cleared', () => {
       registerForm.elements.titleInput().should('have.value', '')
       registerForm.elements.imageURLInput().should('have.value', '')
+    });
+  });
+
+
+
+  describe.only('Refreshing the page after submitting an image clicking in the submit button', () => {
+    clearLocalStorage()
+
+    const data = {
+      title: 'Alieeeen',
+      url: 'https://pbs.twimg.com/profile_images/1169525097/etebilu_400x400.jpg'
+    }
+    it('Given I am on the image registration page', () => {
+      cy.visit('/')
+    });
+
+    it('Then I have submitted an image by clicking the submit button', () => {
+      cy.submitNewImagem(data)
+      cy.wait(1000)
+    });
+
+    it('When I refresh the page', () => {
+      cy.reload()
+    });
+
+    it('Then I should still see the submitted image in the list of registered images', () => {
+      cy.getAllLocalStorage().should((ls) => {
+        const currentLs = ls[window.location.origin]
+        const elements = JSON.parse(Object.values(currentLs))
+        const lastElement = elements[elements.length - 1]
+        
+        // assert.deepStrictEqual(lastElement, {
+        //   title: input.title,
+        //   imageUrl: input.url,
+        // })
+        expect(lastElement).to.deep.equal({
+          title: data.title,
+          imageUrl: data.url
+          
+      })
+      })
+      
     });
   });
 })
