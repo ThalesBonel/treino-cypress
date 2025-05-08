@@ -1,3 +1,6 @@
+/// <reference types="cypress" />
+
+import RegisterForm from './pageObjects/RegisterForm'
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -23,3 +26,8 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('submitNewImagem', ({title, url}) => {
+    const form = new RegisterForm();
+    form.submitForm({title, url})
+})
